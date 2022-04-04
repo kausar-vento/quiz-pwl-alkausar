@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\PostController;
+use App\Models\Category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,20 +29,21 @@ Route::get('/halaman_awal', [BiodataController::class, 'halamanAwal']);
 
 Route::get('/komentar-alka', [BiodataController::class, 'komentar']);
 
+Route::get('/postsData', [PostController::class, 'tambahData']);
 
-// Route::get('/data_diri_alka', function () {
-//     return view('biodata_diri', [
-//         "tittle" => "BIDOATA MUHAMAD AL KAUSAR RAMADHAN",
-//         "text1" => "Muhamad Al Kausar Ramadhan",
-//         "text2" => "19 Tahun",
-//         "text3" => "Depok",
-//         "text4" => "13 November 2002",
-//         "text5" => "Software Developer / Web Developer",
-//         "text6" => "Jalan Merapi Raya, Depok Timur. Jawa Barat",
-//         "text7" => "Malang",
-//         "text8" => "0855-7107-548",
-//         "text9" => "SMK TARUNA BHAKTI",
-//         "text10" => "Islam"
-//     ]);
-// });
+Route::get('/baca-selengkapnya/{post:slug}', [PostController::class, 'readData']);
 
+Route::get('/categories/{category:slug}', function (Category $category) {
+    return view('kategori', [
+        "tittle" => $category->name,
+        "posts" => $category->posts,
+        "category" => $category->name
+    ]);
+});
+
+Route::get('/kategoriPost', function () {
+    return view('daftar_kategori', [
+        "tittle" => "Kategori",
+        "kategori" => Category::all()
+    ]);
+});

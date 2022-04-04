@@ -17,6 +17,12 @@
                 <li class="nav-item">
                     <a class="nav-link {{ ($tittle === "KOMENTAR") ? 'active' : '' }}" href="/komentar-alka">Komentar</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ ($tittle === "tambahData") ? 'active' : '' }}" href="/postsData">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ ($tittle === "Kategori") ? 'active' : '' }}" href="/kategoriPost">Kategori</a>
+                </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
