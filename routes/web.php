@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostCrudController;
+use App\Http\Controllers\AdminLoginController;
 use App\Models\Category;
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +49,16 @@ Route::get('/kategoriPost', function () {
         "kategori" => Category::all()
     ]);
 });
+
+// Login & Logout Admin
+Route::get('/home-admin', function () {
+    return view('admin.home_admin');
+})->middleware('auth');
+
+Route::get('/login-admin', [AdminLoginController::class, 'index'])->middleware('guest');
+Route::post('/login-admin', [AdminLoginController::class, 'store'])->name('login-admin');    
+Route::post('/logout-admin', [AdminLoginController::class, 'logout'])->name('logout');
+Route::get('/register-admin', [AdminLoginController::class, 'adminRegister'])->middleware('guest');  
+Route::post('/register-admin', [AdminLoginController::class, 'registerAdmin'])->name('register-admin');
+
+Route::resource('/admin-post', PostCrudController::class)->middleware('auth');
